@@ -31,10 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Persiapkan Data Form
     const formData = new FormData(form);
     const dataObj = Object.fromEntries(formData.entries());
-    
-    //Persiapkan Data Form
-    const formData = new FormData(form);
-    const dataObj = Object.fromEntries(formData.entries());
 
     //TAMBAHAN: Validasi 20 Digit di sisi Client
     if (dataObj.nomor_pemesanan.trim().length !== 20) {
