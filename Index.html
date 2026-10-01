@@ -1,0 +1,85 @@
+<!--
+  ============================================================
+  FILE: Frontend_Structure.html (Simpan sebagai Index.html)
+  OUTPUT: Kerangka Komponen Portal
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal Konfirmasi Pemesanan</title>
+  <!-- Link ke CSS, jika di Apps script gunakan tag <?!= include('CSS'); ?> -->
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+  <div class="portal">
+    
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="brand">Universitas Terbuka</div>
+      <h1 class="headline">Konfirmasi Pemesanan Modul</h1>
+      <p class="description">Silakan masukkan nomor pesanan Anda untuk memverifikasi data sebelum modul dikirim ke UPBJJ masing-masing.</p>
+      
+      <div class="info-card">
+        <strong>Penting:</strong> Pastikan Nomor Pemesanan yang dimasukkan sesuai dengan invoice pembayaran Anda.
+      </div>
+      
+      <div class="step-indicator">
+        <span class="step active">1. Cek Nomor</span>
+        <span class="step">2. Isi Identitas</span>
+        <span class="step">3. Selesai</span>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Logo_Universitas_Terbuka.svg" alt="Logo UT" width="80">
+      </div>
+      
+      <div class="content-card">
+        <div class="header">
+          <h2>Formulir Validasi</h2>
+        </div>
+        
+        <!-- Area Alert -->
+        <div class="alert hidden" id="alert-box"></div>
+        
+        <!-- Form Pemesanan -->
+        <form id="main-form">
+          <input type="hidden" name="action" id="input-action" value="cek">
+          
+          <div class="form-group">
+            <label for="nomor_pemesanan">Nomor Pemesanan</label>
+            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Contoh: PO12345" required>
+          </div>
+
+          <!-- Bagian Identitas (Disembunyikan sebelum nomor divalidasi) -->
+          <div id="identitas-section" class="hidden">
+            <div class="form-group">
+              <label for="nim">NIM</label>
+              <input type="number" id="nim" name="nim" placeholder="Masukkan NIM Anda">
+            </div>
+            <div class="form-group">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda">
+            </div>
+            <div class="form-group">
+              <label for="nama_upbjj">Nama UPBJJ</label>
+              <input type="text" id="nama_upbjj" name="nama_upbjj" placeholder="Contoh: Jakarta">
+            </div>
+          </div>
+          
+          <button type="submit" id="submit-btn" class="btn-primary">Cek Nomor Pemesanan</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Link ke Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>
