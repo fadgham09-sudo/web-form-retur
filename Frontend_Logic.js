@@ -36,7 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // POST Fetch ke Google Apps Script
       const response = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        body: new URLSearchParams(dataObj)
+        body: new URLSearchParams(dataObj),
+        redirect: "follow"
       });
 
       const result = await response.json();
