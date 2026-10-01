@@ -1,53 +1,48 @@
-<!--
-  ============================================================
-  FILE: Frontend_Structure.html (Simpan sebagai Index.html)
-  OUTPUT: Kerangka Komponen Portal
-  ============================================================
--->
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Portal Konfirmasi Pemesanan</title>
-  <!-- Link ke CSS, jika di Apps script gunakan tag <?!= include('CSS'); ?> -->
-  <link rel="stylesheet" href="style.css"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Retur UT Daerah</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="portal">
+  <!-- PORTAL WRAPPER -->
+  <main class="portal-container">
     
     <!-- LEFT PANEL -->
-    <div class="left-panel">
+    <section class="left-panel">
       <div class="brand">Universitas Terbuka</div>
-      <h1 class="headline">Konfirmasi Pemesanan Modul</h1>
-      <p class="description">Silakan masukkan nomor pesanan Anda untuk memverifikasi data sebelum modul dikirim ke UPBJJ masing-masing.</p>
+      <h1 class="headline">Konfirmasi Retur Daerah</h1>
+      <p class="description">Silakan masukkan nomor pesanan Anda untuk memverifikasi data Paket Retur di UT Daerah</p>
       
       <div class="info-card">
-        <strong>Penting:</strong> Pastikan Nomor Pemesanan yang dimasukkan sesuai dengan invoice pembayaran Anda.
+        <strong>Informasi:</strong> Pastikan Nomor Pemesanan yang dimasukkan sesuai dengan yang tertera di paket
       </div>
       
       <div class="step-indicator">
-        <span class="step active">1. Cek Nomor</span>
-        <span class="step">2. Isi Identitas</span>
-        <span class="step">3. Selesai</span>
+        <span class="step active" id="step-1">1. Cek Nomor</span>
+        <span class="step" id="step-2">2. Isi Identitas</span>
       </div>
-    </div>
+    </section>
 
     <!-- RIGHT PANEL -->
-    <div class="right-panel">
+    <section class="right-panel">
       <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Logo_Universitas_Terbuka.svg" alt="Logo UT" width="80">
       </div>
       
+      <!-- CONTENT CARD -->
       <div class="content-card">
         <div class="header">
           <h2>Formulir Validasi</h2>
         </div>
         
-        <!-- Area Alert -->
+        <!-- Alert Box -->
         <div class="alert hidden" id="alert-box"></div>
         
-        <!-- Form Pemesanan -->
+        <!-- Form -->
         <form id="main-form">
           <input type="hidden" name="action" id="input-action" value="cek">
           
@@ -56,7 +51,7 @@
             <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Contoh: PO12345" required>
           </div>
 
-          <!-- Bagian Identitas (Disembunyikan sebelum nomor divalidasi) -->
+          <!-- Form Identitas (Hidden by default) -->
           <div id="identitas-section" class="hidden">
             <div class="form-group">
               <label for="nim">NIM</label>
@@ -64,7 +59,7 @@
             </div>
             <div class="form-group">
               <label for="nama">Nama Lengkap</label>
-              <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda">
+              <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Lengkap">
             </div>
             <div class="form-group">
               <label for="nama_upbjj">Nama UPBJJ</label>
@@ -75,11 +70,10 @@
           <button type="submit" id="submit-btn" class="btn-primary">Cek Nomor Pemesanan</button>
         </form>
       </div>
-    </div>
+    </section>
 
-  </div>
+  </main>
 
-  <!-- Link ke Javascript -->
   <script src="script.js"></script>
 </body>
 </html>
