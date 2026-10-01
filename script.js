@@ -31,12 +31,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // Persiapkan Data Form
     const formData = new FormData(form);
     const dataObj = Object.fromEntries(formData.entries());
+    
+    //Persiapkan Data Form
+    const formData = new FormData(form);
+    const dataObj = Object.fromEntries(formData.entries());
+
+    //TAMBAHAN: Validasi 20 Digit di sisi Client
+    if (dataObj.nomor_pemesanan.trim().length !== 20) {
+      showAlert("Nomor Pemesanan harus tepat 20 karakter/digit.", "error");
+      btnSubmit.innerText = originalBtnText;
+      btnSubmit.disabled = false;
+      return; // Hentikan proses agar tidak mengirim ke server
+    }
 
     try {
       // POST Fetch ke Google Apps Script
       const response = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        body: new URLSearchParams(dataObj)
+        body: new URLSearchParams(dataObj),
+        redirect: "follow"
       });
 
       const result = await response.json();
