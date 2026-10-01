@@ -1,29 +1,30 @@
 /**
  * ============================================================
- * FILE: Frontend_Style.css (Simpan sebagai style.css)
- * OUTPUT: Tampilan, Ukuran, Warna (Styling)
+ * 3_Frontend_Style.css
+ * OUTPUT: Seluruh Tampilan, Ukuran, Layout, dan Warna
  * ============================================================
  */
 
 :root {
-  /* Variabel Warna */
-  --bg-color: #f4f7f6;
-  --panel-left-bg: #0056b3;
+  /* Konfigurasi Warna Utama */
+  --bg-color: #eef2f5;
+  --panel-left-bg: #0d47a1; /* Biru Tua UT */
   --panel-left-text: #ffffff;
   --panel-right-bg: #ffffff;
   
-  --primary-color: #0056b3;
-  --primary-hover: #004494;
+  --primary-color: #1976d2;
+  --primary-hover: #115293;
   --text-main: #333333;
-  --text-muted: #666666;
+  --accent-color: #ffca28; /* Kuning UT */
   
-  --alert-error-bg: #f8d7da;
-  --alert-error-text: #721c24;
-  --alert-success-bg: #d4edda;
-  --alert-success-text: #155724;
+  /* Konfigurasi Alert */
+  --alert-error-bg: #ffebee;
+  --alert-error-text: #c62828;
+  --alert-success-bg: #e8f5e9;
+  --alert-success-text: #2e7d32;
 
-  /* Variabel Ukuran & Border */
-  --border-radius: 12px;
+  /* Konfigurasi Layout */
+  --border-radius: 16px;
   --spacing-sm: 10px;
   --spacing-md: 20px;
   --spacing-lg: 40px;
@@ -45,18 +46,18 @@ body {
   padding: var(--spacing-md);
 }
 
-/* PORTAL LAYOUT */
-.portal {
+/* 1. PORTAL */
+.portal-container {
   display: flex;
   width: 100%;
-  max-width: 1000px;
+  max-width: 960px;
   background: var(--panel-right-bg);
   border-radius: var(--border-radius);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* LEFT PANEL */
+/* 2. LEFT PANEL */
 .left-panel {
   flex: 1;
   background-color: var(--panel-left-bg);
@@ -68,18 +69,18 @@ body {
 }
 
 .left-panel .brand {
-  font-weight: bold;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
   margin-bottom: var(--spacing-md);
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0.8;
 }
 
 .left-panel .headline {
   font-size: 2.2rem;
   margin-bottom: var(--spacing-sm);
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .left-panel .description {
@@ -92,57 +93,57 @@ body {
 .left-panel .info-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
-  border-left: 4px solid #ffcc00;
-  border-radius: 4px;
+  border-left: 4px solid var(--accent-color);
+  border-radius: 6px;
   margin-bottom: var(--spacing-lg);
   font-size: 0.9rem;
 }
 
 .left-panel .step-indicator {
   display: flex;
-  gap: 15px;
-  font-size: 0.85rem;
+  gap: 20px;
+  font-size: 0.9rem;
 }
 
 .left-panel .step {
   opacity: 0.5;
+  padding-bottom: 5px;
 }
 
 .left-panel .step.active {
   opacity: 1;
   font-weight: bold;
-  border-bottom: 2px solid #ffcc00;
-  padding-bottom: 4px;
+  border-bottom: 2px solid var(--accent-color);
 }
 
-/* RIGHT PANEL */
+/* 3. RIGHT PANEL & CONTENT CARD */
 .right-panel {
-  flex: 1;
+  flex: 1.2;
   padding: var(--spacing-lg);
   background: var(--panel-right-bg);
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .right-panel .logo {
   text-align: right;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
-/* CONTENT CARD */
 .content-card .header h2 {
   color: var(--text-main);
   margin-bottom: var(--spacing-md);
+  font-size: 1.5rem;
 }
 
+/* Form Styles */
 .form-group {
   margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: var(--text-main);
   font-weight: 600;
   font-size: 0.9rem;
@@ -150,23 +151,30 @@ body {
 
 .form-group input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px 15px;
+  border: 1.5px solid #dcdcdc;
+  border-radius: 8px;
   font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
 }
 
 .btn-primary {
   width: 100%;
-  padding: 14px;
+  padding: 15px;
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: var(--spacing-sm);
 }
 
 .btn-primary:hover {
@@ -174,24 +182,27 @@ body {
 }
 
 .btn-primary:disabled {
-  background-color: #cccccc;
+  background-color: #b0bec5;
   cursor: not-allowed;
 }
 
+/* Alert Box */
 .alert {
-  padding: 12px;
-  border-radius: 6px;
+  padding: 15px;
+  border-radius: 8px;
   margin-bottom: var(--spacing-md);
   font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .alert.error { background: var(--alert-error-bg); color: var(--alert-error-text); }
 .alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); }
 .hidden { display: none !important; }
 
-/* Responsive Design */
+/* Responsive Mobile */
 @media (max-width: 768px) {
-  .portal { flex-direction: column; }
-  .left-panel { padding: var(--spacing-md); }
-  .right-panel { padding: var(--spacing-md); }
+  .portal-container { flex-direction: column; }
+  .left-panel { padding: 30px 20px; }
+  .right-panel { padding: 30px 20px; }
 }
