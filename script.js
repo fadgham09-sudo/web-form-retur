@@ -25,8 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // 1. Ambil data dari JSON saat halaman pertama dimuat
   async function loadValidNumbers() {
     try {
-      const response = await fetch('do_all.json');
-      validNumbers = await response.json();
+      const response = await fetch('data_nomor.json');
+      const rawData = await response.json();
+      
+      // Membongkar array dua dimensi (contoh: [["123"], ["456"]]) 
+      // menjadi daftar tunggal (contoh: ["123", "456"])
+      if (rawData && rawData.data) {
+        validNumbers = rawData.data.map(row => row[0].toString());
+      }
+      
     } catch (error) {
       console.error("Gagal memuat database nomor:", error);
     }
