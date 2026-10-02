@@ -5,6 +5,21 @@
  */
 
 :root {
+  /* Gradien Background Premium (Biru Pudar & Emas Pudar) */
+  --bg-gradient-1: #eef2f5; 
+  --bg-gradient-2: #e1f5fe; /* Ice Cyan sangat muda */
+  --bg-gradient-3: #fff8e1; /* Champagne Gold sangat muda */
+  
+  /* Palet Utama UT (Sesuai aslinya) */
+  --panel-left-bg: rgba(13, 71, 161, 0.85); 
+  --panel-left-text: #ffffff;
+  --panel-right-bg: rgba(255, 255, 255, 0.75); 
+  
+  /* Tambahan Warna Pendaran (Glow) Kaca */
+  --glass-glow-cyan: rgba(0, 176, 255, 0.12);
+  --glass-glow-gold: rgba(255, 179, 0, 0.1);
+  --glass-shadow: rgba(13, 71, 161, 0.15); /* Bayangan Biru Tua UT */
+  
   /* Warna Background Dasar Asli dengan Gradasi Halus agar Efek Kaca Terlihat */
   --bg-gradient-1: #eef2f5; /* Warna asli bg-color */
   --bg-gradient-2: #d6e2eb; /* Varian sedikit lebih gelap dari bg-color untuk gradasi */
@@ -40,10 +55,10 @@
   font-family: 'Red Hat Display', 'Inter', sans-serif;
 }
 
-/* Background Animasi Gradien Halus dari Palet Asli */
 body {
-  background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-1));
-  background-size: 200% 200%;
+/* Gradien 3 warna bergerak lambat */
+  background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-1));
+  background-size: 300% 300%;
   animation: gradientBG 15s ease infinite;
   display: flex;
   justify-content: center;
@@ -70,33 +85,46 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  /* Pantulan Cahaya di Border */
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+
+  /* Kombinasi Bayangan UT + Pendaran Ice Cyan & Gold */
+  box-shadow: 
+    0 20px 40px var(--glass-shadow), 
+    -10px -10px 30px var(--glass-glow-cyan), 
+    10px 10px 30px var(--glass-glow-gold);
+  
   overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease; 
 }
 
 /* Interaksi saat kursor berada di atas portal */
 .portal-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+  /* Pendaran membesar saat disentuh */
+  box-shadow: 
+    0 25px 50px rgba(13, 71, 161, 0.2), 
+    -15px -15px 40px rgba(0, 176, 255, 0.2), 
+    15px 15px 40px rgba(255, 179, 0, 0.15);
 }
 
-/* 2. LEFT PANEL - Menggunakan Biru Tua UT Transparan */
+/* 2. LEFT PANEL */
 .left-panel {
   flex: 1;
   background-color: var(--panel-left-bg);
   color: var(--panel-left-text);
-  padding: var(--spacing-lg);
+  padding: 50px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .left-panel .brand {
   font-weight: 600;
   letter-spacing: 1.5px;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 25px;
   text-transform: uppercase;
   font-size: 0.85rem;
   opacity: 0.85;
@@ -104,14 +132,13 @@ body {
 
 .left-panel .headline {
   font-size: 2.2rem;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 15px;
   line-height: 1.3;
 }
 
 .left-panel .description {
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: var(--spacing-lg);
   opacity: 0.9;
 }
 
@@ -121,7 +148,8 @@ body {
   padding: 15px;
   border-left: 4px solid var(--accent-color);
   border-radius: 8px;
-  margin-bottom: var(--spacing-lg);
+  margin-top: auto;
+  margin-bottom: 30px;
   font-size: 0.9rem;
   transition: transform 0.3s ease, background 0.3s ease;
 }
