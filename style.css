@@ -1,30 +1,33 @@
 /**
  * ============================================================
- * 3_Frontend_Style.css
- * OUTPUT: Seluruh Tampilan, Ukuran, Layout, dan Warna
+ * 3_Frontend_Style.css (Glassmorphism + Palet Warna Asli UT)
  * ============================================================
  */
 
 :root {
-  /* Konfigurasi Warna Utama */
-  --bg-color: #eef2f5;
-  --panel-left-bg: #0d47a1; /* Biru Tua UT */
-  --panel-left-text: #ffffff;
-  --panel-right-bg: #ffffff;
+  /* Warna Background Dasar Asli dengan Gradasi Halus agar Efek Kaca Terlihat */
+  --bg-gradient-1: #eef2f5; /* Warna asli bg-color */
+  --bg-gradient-2: #d6e2eb; /* Varian sedikit lebih gelap dari bg-color untuk gradasi */
   
+  /* Palet Asli Dikonversi ke RGBA untuk Efek Tembus Pandang (Kaca) */
+  --panel-left-bg: rgba(13, 71, 161, 0.85); /* #0d47a1 (Biru Tua UT) + Transparansi 85% */
+  --panel-left-text: #ffffff;
+  --panel-right-bg: rgba(255, 255, 255, 0.75); /* #ffffff (Putih) + Transparansi 75% */
+  
+  /* Palet Warna Aksi Asli */
   --primary-color: #1976d2;
   --primary-hover: #115293;
   --text-main: #333333;
   --accent-color: #ffca28; /* Kuning UT */
   
-  /* Konfigurasi Alert */
+  /* Konfigurasi Alert Asli */
   --alert-error-bg: #ffebee;
   --alert-error-text: #c62828;
   --alert-success-bg: #e8f5e9;
   --alert-success-text: #2e7d32;
 
-  /* Konfigurasi Layout */
-  --border-radius: 16px;
+  /* Konfigurasi Layout (Sedikit diperbesar radiusnya untuk kesan modern) */
+  --border-radius: 20px;
   --spacing-sm: 10px;
   --spacing-md: 20px;
   --spacing-lg: 40px;
@@ -34,11 +37,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Red Hat Display, Inter;
+  font-family: 'Red Hat Display', 'Inter', sans-serif;
 }
 
+/* Background Animasi Gradien Halus dari Palet Asli */
 body {
-  background-color: var(--bg-color);
+  background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-1));
+  background-size: 200% 200%;
+  animation: gradientBG 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,18 +52,37 @@ body {
   padding: var(--spacing-md);
 }
 
-/* 1. PORTAL */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 1. PORTAL - Efek Utama Kaca (Glassmorphism) */
 .portal-container {
   display: flex;
   width: 100%;
   max-width: 960px;
-  background: var(--panel-right-bg);
   border-radius: var(--border-radius);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  
+  /* Efek Blur Kaca Utama */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
   overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* 2. LEFT PANEL */
+/* Interaksi saat kursor berada di atas portal */
+.portal-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* 2. LEFT PANEL - Menggunakan Biru Tua UT Transparan */
 .left-panel {
   flex: 1;
   background-color: var(--panel-left-bg);
@@ -74,7 +99,7 @@ body {
   margin-bottom: var(--spacing-md);
   text-transform: uppercase;
   font-size: 0.85rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .left-panel .headline {
@@ -90,13 +115,20 @@ body {
   opacity: 0.9;
 }
 
+/* Info Card dengan Kuning UT & Interaksi Melayang */
 .left-panel .info-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
   border-left: 4px solid var(--accent-color);
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: var(--spacing-lg);
   font-size: 0.9rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.left-panel .info-card:hover {
+  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .left-panel .step-indicator {
@@ -108,12 +140,18 @@ body {
 .left-panel .step {
   opacity: 0.5;
   padding-bottom: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.left-panel .step:hover {
+  opacity: 0.8;
+  cursor: default;
 }
 
 .left-panel .step.active {
   opacity: 1;
   font-weight: bold;
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-color); /* Kuning UT */
 }
 
 /* 3. RIGHT PANEL & CONTENT CARD */
@@ -128,15 +166,21 @@ body {
 .right-panel .logo {
   text-align: right;
   margin-bottom: var(--spacing-lg);
+  transition: transform 0.4s ease;
+}
+
+.right-panel .logo:hover {
+  transform: scale(1.05) rotate(-2deg);
 }
 
 .content-card .header h2 {
   color: var(--text-main);
   margin-bottom: var(--spacing-md);
   font-size: 1.5rem;
+  font-weight: 700;
 }
 
-/* Form Styles */
+/* Form Styles dengan Interaksi Kaca Khas */
 .form-group {
   margin-bottom: var(--spacing-md);
 }
@@ -151,58 +195,84 @@ body {
 
 .form-group input {
   width: 100%;
-  padding: 12px 15px;
-  border: 1.5px solid #dcdcdc;
-  border-radius: 8px;
+  padding: 14px 15px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
   font-size: 1rem;
+  color: var(--text-main);
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.form-group input:hover {
+  background: #ffffff;
 }
 
 .form-group input:focus {
   border-color: var(--primary-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
+  transform: translateY(-2px);
 }
 
+/* Tombol Primary Sesuai Palet Asli */
 .btn-primary {
   width: 100%;
   padding: 15px;
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   margin-top: var(--spacing-sm);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.25);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(25, 118, 210, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
 .btn-primary:disabled {
   background-color: #b0bec5;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 /* Alert Box */
 .alert {
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: var(--spacing-md);
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.4;
+  animation: slideIn 0.3s ease-out forwards;
 }
 
-.alert.error { background: var(--alert-error-bg); color: var(--alert-error-text); }
-.alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alert.error { background: var(--alert-error-bg); color: var(--alert-error-text); border: 1px solid #ffcdd2; }
+.alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); border: 1px solid #c8e6c9; }
 .hidden { display: none !important; }
 
 /* Responsive Mobile */
 @media (max-width: 768px) {
   .portal-container { flex-direction: column; }
-  .left-panel { padding: 30px 20px; }
-  .right-panel { padding: 30px 20px; }
+  .left-panel { padding: 30px 20px; border-radius: var(--border-radius) var(--border-radius) 0 0; }
+  .right-panel { padding: 30px 20px; border-radius: 0 0 var(--border-radius) var(--border-radius); }
 }
