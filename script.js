@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 1. Ambil data dari JSON saat halaman pertama dimuat
   async function loadValidNumbers() {
     try {
-      const response = await fetch('data_nomor.json');
+      const response = await fetch('do_all.json');
       const rawData = await response.json();
       
       // Membongkar array dua dimensi (contoh: [["123"], ["456"]]) 
