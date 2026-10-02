@@ -79,12 +79,10 @@ body {
   width: 100%;
   max-width: 960px;
   border-radius: var(--border-radius);
-  
   /* Efek Blur Kaca Utama */
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  
   /* Pantulan Cahaya di Border */
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
@@ -97,7 +95,7 @@ body {
     -10px -10px 30px var(--glass-glow-cyan), 
     10px 10px 30px var(--glass-glow-gold);
   
-  overflow: hidden;
+  overflow: visible;
   transition: transform 0.4s ease, box-shadow 0.4s ease; 
 }
 
@@ -111,7 +109,6 @@ body {
     15px 15px 40px rgba(255, 179, 0, 0.15);
 }
 
-/* 2. LEFT PANEL */
 .left-panel {
   flex: 1;
   background-color: var(--panel-left-bg);
@@ -119,6 +116,8 @@ body {
   padding: 50px 40px;
   display: flex;
   flex-direction: column;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
 .left-panel .brand {
@@ -189,6 +188,8 @@ body {
   background: var(--panel-right-bg);
   display: flex;
   flex-direction: column;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .right-panel .logo {
