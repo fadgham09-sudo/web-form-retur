@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     autocompleteList.innerHTML = "";
     autocompleteList.classList.add("hidden");
     if (!val) return;
+    
     // Cari nomor yang mengandung kombinasi angka yang diketik (dibatasi 5 hasil agar rapi)
     const filtered = validNumbers.filter(num => num.includes(val)).slice(0, 5);
-
     if (filtered.length > 0) {
       autocompleteList.classList.remove("hidden");
       
