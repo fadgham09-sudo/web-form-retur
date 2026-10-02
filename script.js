@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 1. Ambil data dari JSON saat halaman pertama dimuat
   async function loadValidNumbers() {
     try {
-      const response = await fetch('data_nomor.json');
+      const response = await fetch('do_all.json');
       validNumbers = await response.json();
     } catch (error) {
       console.error("Gagal memuat database nomor:", error);
