@@ -304,3 +304,55 @@ body {
   .left-panel { padding: 30px 20px; border-radius: var(--border-radius) var(--border-radius) 0 0; }
   .right-panel { padding: 30px 20px; border-radius: 0 0 var(--border-radius) var(--border-radius); }
 }
+
+/* ============================================================
+   AUTOCOMPLETE DROPDOWN (GLASSMORPHISM)
+   ============================================================ */
+.autocomplete-wrapper {
+  position: relative;
+}
+
+.autocomplete-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 25px rgba(13, 71, 161, 0.15);
+}
+
+.autocomplete-items div {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.2s ease;
+}
+
+.autocomplete-items div:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-items div:hover {
+  background: rgba(25, 118, 210, 0.1); /* Biru UT transparan */
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Scrollbar khusus untuk dropdown */
+.autocomplete-items::-webkit-scrollbar {
+  width: 8px;
+}
+.autocomplete-items::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
