@@ -19,6 +19,56 @@ document.addEventListener("DOMContentLoaded", function () {
   const step1 = document.getElementById("step-1");
   const step2 = document.getElementById("step-2");
 
+  // LOGIKA AUTOCOMPLETE & VALIDASI DATABASE JSON
+  const autocompleteList = document.getElementById("autocomplete-list");
+  let validNumbers = [];
+  // 1. Ambil data dari JSON saat halaman pertama dimuat
+  async function loadValidNumbers() {
+    try {
+      const response = await fetch('data_nomor.json');
+      validNumbers = await response.json();
+    } catch (error) {
+      console.error("Gagal memuat database nomor:", error);
+    }
+  }
+  loadValidNumbers();
+  // 2. Filter data saat pengguna mengetik
+  nomorInput.addEventListener("input", function () {
+    const val = this.value.trim();
+    autocompleteList.innerHTML = "";
+    autocompleteList.classList.add("hidden");
+    if (!val) return;
+    // Cari nomor yang mengandung kombinasi angka yang diketik (dibatasi 5 hasil agar rapi)
+    const filtered = validNumbers.filter(num => num.includes(val)).slice(0, 5);
+
+    if (filtered.length > 0) {
+      autocompleteList.classList.remove("hidden");
+      
+      filtered.forEach(num => {
+        const div = document.createElement("div");
+        // Beri efek tebal pada angka yang cocok
+        const regex = new RegExp(`(${val})`, "gi");
+        div.innerHTML = num.replace(regex, "<strong>$1</strong>");
+        
+        // Saat diklik, masukkan angka ke input
+        div.addEventListener("click", function () {
+          nomorInput.value = num;
+          autocompleteList.innerHTML = "";
+          autocompleteList.classList.add("hidden");
+        });
+        autocompleteList.appendChild(div);
+      });
+    }
+  });
+
+  // 3. Tutup dropdown jika area lain di layar diklik
+  document.addEventListener("click", function (e) {
+    if (e.target !== nomorInput) {
+      autocompleteList.innerHTML = "";
+      autocompleteList.classList.add("hidden");
+    }
+  });
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     
@@ -32,12 +82,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData(form);
     const dataObj = Object.fromEntries(formData.entries());
 
-    //TAMBAHAN: Validasi 20 Digit di sisi Client
-    if (dataObj.nomor_pemesanan.trim().length !== 20) {
-      showAlert("Nomor Pemesanan harus tepat 20 karakter/digit.", "error");
+    // Validasi 1: Pastikan 20 digit
+    const nomorDiketik = dataObj.nomor_pemesanan.trim();
+    if (nomorDiketik.length !== 20) {
+      showAlert("Nomor Pemesanan harus tepat 20 digit.", "error");
       btnSubmit.innerText = originalBtnText;
       btnSubmit.disabled = false;
-      return; // Hentikan proses agar tidak mengirim ke server
+      return; 
+    }
+
+    // Validasi 2: Pastikan nomor terdaftar di database JSON
+    // (Abaikan pengecekan ini jika pengguna sedang menyimpan identitas / action = simpan)
+    if (actionInput.value === "cek" && !validNumbers.includes(nomorDiketik)) {
+      showAlert("Nomor Pemesanan tidak terdaftar di database. Silakan periksa kembali.", "error");
+      btnSubmit.innerText = originalBtnText;
+      btnSubmit.disabled = false;
+      return; 
     }
 
     try {
