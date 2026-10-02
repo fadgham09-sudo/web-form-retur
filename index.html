@@ -51,9 +51,11 @@
         <form id="main-form">
           <input type="hidden" name="action" id="input-action" value="cek">
           
-          <div class="form-group">
+         <div class="form-group autocomplete-wrapper">
             <label for="nomor_pemesanan">Nomor Pemesanan</label>
-            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 digit angka" minlength="20" maxlength="20" pattern="\d{20}" title="Nomor harus terdiri dari tepat 20 digit angka" required>
+            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 digit angka" minlength="20" maxlength="20" pattern="\d{20}" title="Nomor harus terdiri dari tepat 20 digit angka" autocomplete="off" required>
+            <!-- Wadah untuk memunculkan saran nomor -->
+            <div id="autocomplete-list" class="autocomplete-items hidden"></div>
           </div>
 
           <!-- Form Identitas (Hidden by default) -->
