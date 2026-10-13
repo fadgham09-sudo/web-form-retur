@@ -10,24 +10,15 @@
   --bg-gradient-2: #e1f5fe; /* Ice Cyan sangat muda */
   --bg-gradient-3: #fff8e1; /* Champagne Gold sangat muda */
   
-  /* Palet Utama UT (Sesuai aslinya) */
-  --panel-left-bg: rgba(13, 71, 161, 0.85); 
+  /* Palet Asli Dikonversi ke RGBA untuk Efek Tembus Pandang (Kaca) */
+  --panel-left-bg: rgba(13, 71, 161, 0.85); /* Biru Tua UT Transparan */
   --panel-left-text: #ffffff;
-  --panel-right-bg: rgba(255, 255, 255, 0.75); 
+  --panel-right-bg: rgba(255, 255, 255, 0.75); /* Kaca Putih Transparan */
   
   /* Tambahan Warna Pendaran (Glow) Kaca */
   --glass-glow-cyan: rgba(0, 176, 255, 0.12);
   --glass-glow-gold: rgba(255, 179, 0, 0.1);
   --glass-shadow: rgba(13, 71, 161, 0.15); /* Bayangan Biru Tua UT */
-  
-  /* Warna Background Dasar Asli dengan Gradasi Halus agar Efek Kaca Terlihat */
-  --bg-gradient-1: #eef2f5; /* Warna asli bg-color */
-  --bg-gradient-2: #d6e2eb; /* Varian sedikit lebih gelap dari bg-color untuk gradasi */
-  
-  /* Palet Asli Dikonversi ke RGBA untuk Efek Tembus Pandang (Kaca) */
-  --panel-left-bg: rgba(13, 71, 161, 0.85); /* #0d47a1 (Biru Tua UT) + Transparansi 85% */
-  --panel-left-text: #ffffff;
-  --panel-right-bg: rgba(255, 255, 255, 0.75); /* #ffffff (Putih) + Transparansi 75% */
   
   /* Palet Warna Aksi Asli */
   --primary-color: #1976d2;
@@ -41,7 +32,7 @@
   --alert-success-bg: #e8f5e9;
   --alert-success-text: #2e7d32;
 
-  /* Konfigurasi Layout (Sedikit diperbesar radiusnya untuk kesan modern) */
+  /* Konfigurasi Layout */
   --border-radius: 20px;
   --spacing-sm: 10px;
   --spacing-md: 20px;
@@ -56,7 +47,6 @@
 }
 
 body {
-/* Gradien 3 warna bergerak lambat */
   background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-1));
   background-size: 300% 300%;
   animation: gradientBG 15s ease infinite;
@@ -79,34 +69,20 @@ body {
   width: 100%;
   max-width: 960px;
   border-radius: var(--border-radius);
-  /* Efek Blur Kaca Utama */
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  /* Pantulan Cahaya di Border */
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-
-  /* Kombinasi Bayangan UT + Pendaran Ice Cyan & Gold */
-  box-shadow: 
-    0 20px 40px var(--glass-shadow), 
-    -10px -10px 30px var(--glass-glow-cyan), 
-    10px 10px 30px var(--glass-glow-gold);
-  
+  box-shadow: 0 20px 40px var(--glass-shadow), -10px -10px 30px var(--glass-glow-cyan), 10px 10px 30px var(--glass-glow-gold);
   overflow: visible;
   transition: transform 0.4s ease, box-shadow 0.4s ease; 
 }
 
-/* Interaksi saat kursor berada di atas portal */
 .portal-container:hover {
   transform: translateY(-5px);
-  /* Pendaran membesar saat disentuh */
-  box-shadow: 
-    0 25px 50px rgba(13, 71, 161, 0.2), 
-    -15px -15px 40px rgba(0, 176, 255, 0.2), 
-    15px 15px 40px rgba(255, 179, 0, 0.15);
+  box-shadow: 0 25px 50px rgba(13, 71, 161, 0.2), -15px -15px 40px rgba(0, 176, 255, 0.2), 15px 15px 40px rgba(255, 179, 0, 0.15);
 }
 
 .left-panel {
@@ -141,7 +117,6 @@ body {
   opacity: 0.9;
 }
 
-/* Info Card dengan Kuning UT & Interaksi Melayang */
 .left-panel .info-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
@@ -178,10 +153,9 @@ body {
 .left-panel .step.active {
   opacity: 1;
   font-weight: bold;
-  border-bottom: 2px solid var(--accent-color); /* Kuning UT */
+  border-bottom: 2px solid var(--accent-color);
 }
 
-/* 3. RIGHT PANEL & CONTENT CARD */
 .right-panel {
   flex: 1.2;
   padding: var(--spacing-lg);
@@ -209,7 +183,6 @@ body {
   font-weight: 700;
 }
 
-/* Form Styles dengan Interaksi Kaca Khas */
 .form-group {
   margin-bottom: var(--spacing-md);
 }
@@ -244,6 +217,8 @@ body {
   background: #ffffff;
   box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
   transform: translateY(-2px);
+} /* Penambahan kurung kurawal yang sebelumnya terhapus */
+
 .form-group textarea {
   width: 100%;
   padding: 14px 15px;
@@ -257,50 +232,6 @@ body {
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
   resize: vertical;
 }
-  .form-group textarea:hover {
-  background: #ffffff;
-}
-
-.form-group textarea:focus {
-  border-color: var(--primary-color);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
-  transform: translateY(-2px);
-}
-
-/* Membuat input readonly terlihat sedikit berbeda agar user tahu itu terkunci */
-.form-group input[readonly] {
-  background: rgba(230, 230, 230, 0.6);
-  cursor: not-allowed;
-}
-  /* =========================================
-   TATA LETAK KOLOM SEJAJAR (NIM & UT DAERAH)
-   ========================================= */
-.form-row {
-  display: flex;
-  gap: 15px; /* Jarak estetik antara kolom NIM dan UT Daerah */
-}
-
-.form-row .form-group {
-  flex: 1; /* Memaksa kedua kolom berbagi ukuran 50:50 */
-}
-
-/* =========================================
-   STYLING KOTAK ALASAN RETUR (TEXTAREA)
-   ========================================= */
-.form-group textarea {
-  width: 100%;
-  padding: 14px 15px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1.5px solid rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  font-size: 1rem;
-  color: var(--text-main);
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
-  resize: vertical; /* Pengguna hanya bisa menarik kotak ke arah bawah, tidak ke samping */
-}
 
 .form-group textarea:hover {
   background: #ffffff;
@@ -313,7 +244,20 @@ body {
   transform: translateY(-2px);
 }
 
-/* Responsif: Jika dibuka di HP, jadikan tumpuk ke bawah (1 kolom) agar tidak sempit */
+.form-group input[readonly] {
+  background: rgba(230, 230, 230, 0.6);
+  cursor: not-allowed;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px; 
+}
+
+.form-row .form-group {
+  flex: 1; 
+}
+
 @media (max-width: 480px) {
   .form-row {
     flex-direction: column;
@@ -321,7 +265,6 @@ body {
   }
 }
 
-/* Tombol Primary Sesuai Palet Asli */
 .btn-primary {
   width: 100%;
   padding: 15px;
@@ -354,7 +297,6 @@ body {
   transform: none;
 }
 
-/* Alert Box */
 .alert {
   padding: 15px;
   border-radius: 10px;
@@ -374,16 +316,12 @@ body {
 .alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); border: 1px solid #c8e6c9; }
 .hidden { display: none !important; }
 
-/* Responsive Mobile */
 @media (max-width: 768px) {
   .portal-container { flex-direction: column; }
   .left-panel { padding: 30px 20px; border-radius: var(--border-radius) var(--border-radius) 0 0; }
   .right-panel { padding: 30px 20px; border-radius: 0 0 var(--border-radius) var(--border-radius); }
 }
 
-/* ============================================================
-   AUTOCOMPLETE DROPDOWN (GLASSMORPHISM)
-   ============================================================ */
 .autocomplete-wrapper {
   position: relative;
 }
@@ -419,12 +357,11 @@ body {
 }
 
 .autocomplete-items div:hover {
-  background: rgba(25, 118, 210, 0.1); /* Biru UT transparan */
+  background: rgba(25, 118, 210, 0.1);
   color: var(--primary-color);
   font-weight: 600;
 }
 
-/* Scrollbar khusus untuk dropdown */
 .autocomplete-items::-webkit-scrollbar {
   width: 8px;
 }
