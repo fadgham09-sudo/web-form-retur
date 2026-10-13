@@ -244,6 +244,34 @@ body {
   background: #ffffff;
   box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
   transform: translateY(-2px);
+.form-group textarea {
+  width: 100%;
+  padding: 14px 15px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  font-size: 1rem;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+  resize: vertical;
+}
+  .form-group textarea:hover {
+  background: #ffffff;
+}
+
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Membuat input readonly terlihat sedikit berbeda agar user tahu itu terkunci */
+.form-group input[readonly] {
+  background: rgba(230, 230, 230, 0.6);
+  cursor: not-allowed;
 }
 
 /* Tombol Primary Sesuai Palet Asli */
