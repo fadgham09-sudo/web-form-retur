@@ -95,13 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return; 
     }
 
-    // Validasi 2: Pastikan nomor terdaftar di database JSON
-    if (actionInput.value === "cek" && !validNumbers.includes(nomorDiketik)) {
-      showAlert("Nomor Pemesanan tidak terdaftar di database. Silakan periksa kembali.", "error");
-      btnSubmit.innerText = originalBtnText;
-      btnSubmit.disabled = false;
-      return;
-      // Validasi 2: Pastikan nomor terdaftar di database JSON
+   // Validasi 2: Pastikan nomor terdaftar di database JSON
     if (actionInput.value === "cek" && !validNumbers.includes(nomorDiketik)) {
       showAlert("Nomor Pemesanan tidak terdaftar di database. Silakan periksa kembali.", "error");
       btnSubmit.innerText = originalBtnText;
@@ -109,11 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
       return; 
     }
 
-    // --- TAMBAHAN BARU: Validasi Alasan Retur di Tahap 2 ---
+    // --- TAMBAHAN BARU: Validasi Manual di Tahap 2 ---
     if (actionInput.value === "simpan") {
+      const nimDiketik = document.getElementById("nim").value.trim();
+      const upbjjDiketik = document.getElementById("nama_upbjj").value.trim();
       const alasanReturDiketik = document.getElementById("alasan_retur").value.trim();
-      if (alasanReturDiketik === "") {
-        showAlert("Kolom Alasan Retur wajib diisi.", "error");
+      
+      if (nimDiketik === "" || upbjjDiketik === "" || alasanReturDiketik === "") {
+        showAlert("Semua identitas (NIM, UT Daerah, dan Alasan Retur) wajib diisi.", "error");
         btnSubmit.innerText = originalBtnText;
         btnSubmit.disabled = false;
         return;
