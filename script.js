@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const autocompleteList = document.getElementById("autocomplete-list");
   let validNumbers = [];
   // 1. Ambil data dari JSON saat halaman pertama dimuat
+  let fullDataList = [];
   async function loadValidNumbers() {
     try {
       const response = await fetch('do_all.json');
@@ -31,9 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
       // Membongkar array dua dimensi (contoh: [["123"], ["456"]]) 
       // menjadi daftar tunggal (contoh: ["123", "456"])
       if (rawData && rawData.data) {
-        validNumbers = rawData.data.map(row => row[0].toString());
+       fullDataList = rawData.data.map(row => ({
+          nomor: row[0].toString(),
+          nim: row[1] ? row[1].toString() : "Data tidak ditemukan",
+          upbjj: row[2] ? row[2].toString() : "Data tidak ditemukan"
+        }));
+        validNumbers = fullDataList.map(item => item.nomor);
       }
-      
     } catch (error) {
       console.error("Gagal memuat database nomor:", error);
     }
@@ -134,6 +139,17 @@ document.addEventListener("DOMContentLoaded", function () {
       if (res.status === "sudah_terdata") {
         showAlert(res.pesan, "error");
       } else if (res.status === "belum_terdata") {
+        showAlert("Nomor ditemukan! Silakan lengkapi alasan retur.", "success");
+        nomorInput.readOnly = true;
+        identitasSection.classList.remove("hidden");
+        
+        // --- TAMBAHAN AUTOFILL ---
+        const matchedData = fullDataList.find(d => d.nomor === nomorInput.value.trim());
+        if (matchedData) {
+          document.getElementById("nim").value = matchedData.nim;
+          document.getElementById("nama_upbjj").value = matchedData.upbjj;
+        }
+        
         // Pindah ke State 2: Isi Identitas
         showAlert(res.pesan, "success");
         
