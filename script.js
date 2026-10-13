@@ -100,8 +100,26 @@ document.addEventListener("DOMContentLoaded", function () {
       showAlert("Nomor Pemesanan tidak terdaftar di database. Silakan periksa kembali.", "error");
       btnSubmit.innerText = originalBtnText;
       btnSubmit.disabled = false;
+      return;
+      // Validasi 2: Pastikan nomor terdaftar di database JSON
+    if (actionInput.value === "cek" && !validNumbers.includes(nomorDiketik)) {
+      showAlert("Nomor Pemesanan tidak terdaftar di database. Silakan periksa kembali.", "error");
+      btnSubmit.innerText = originalBtnText;
+      btnSubmit.disabled = false;
       return; 
     }
+
+    // --- TAMBAHAN BARU: Validasi Alasan Retur di Tahap 2 ---
+    if (actionInput.value === "simpan") {
+      const alasanReturDiketik = document.getElementById("alasan_retur").value.trim();
+      if (alasanReturDiketik === "") {
+        showAlert("Kolom Alasan Retur wajib diisi.", "error");
+        btnSubmit.innerText = originalBtnText;
+        btnSubmit.disabled = false;
+        return;
+      }
+    }
+    // -------------------------------------------------------
 
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
