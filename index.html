@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Retur UT Daerah</title>
   
-  <!--Pemanggilan font rapih-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -15,7 +14,6 @@
 </head>
   
 <body>
-  <!-- PORTAL WRAPPER -->
   <main class="portal-container">
     
     <!-- LEFT PANEL -->
@@ -38,49 +36,46 @@
         <img src="logo warna UT.png" alt="logo UT" width="80">
       </div>
       
-      <!-- CONTENT CARD -->
       <div class="content-card">
         <div class="header">
           <h2>Formulir Validasi</h2>
         </div>
         
-        <!-- Alert Box -->
         <div class="alert hidden" id="alert-box"></div>
         
-        <!-- Form -->
         <form id="main-form">
           <input type="hidden" name="action" id="input-action" value="cek">
           
          <div class="form-group autocomplete-wrapper">
             <label for="nomor_pemesanan">Nomor Pemesanan</label>
-            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 digit angka" minlength="20" maxlength="20" pattern="\d{20}" title="Nomor harus terdiri dari tepat 20 digit angka" autocomplete="off" required>
-            <!-- Wadah untuk memunculkan saran nomor -->
+            <!-- Validasi 20 - 22 karakter diinput disini -->
+            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 - 22 digit angka" minlength="20" maxlength="22" pattern="\d{20,22}" title="Nomor harus terdiri dari 20 hingga 22 digit angka" autocomplete="off" required>
             <div id="autocomplete-list" class="autocomplete-items hidden"></div>
           </div>
 
-          <!-- Form Identitas (Hidden by default) -->
+          <!-- Form Identitas (Terkunci Readonly) -->
           <div id="identitas-section" class="hidden">
             
             <div class="form-row">
               <div class="form-group">
-              <label for="nim">NIM</label>
-              <input type="number" id="nim" name="nim" placeholder="Masukkan NIM Pemilik Paket">
-            </div>
-              
-            <div class="form-group">
-              <label for="nama_upbjj">UT Daerah</label>
-              <input type="text" id="nama_upbjj" name="nama_upbjj" placeholder="Contoh: Jakarta">
-            </div>
+                <label for="nim">NIM</label>
+                <!-- Atribut Readonly diterapkan agar data ditarik dari JSON -->
+                <input type="number" id="nim" name="nim" placeholder="Terisi Otomatis" readonly>
+              </div>
+                
+              <div class="form-group">
+                <label for="nama_upbjj">UT Daerah</label>
+                <input type="text" id="nama_upbjj" name="nama_upbjj" placeholder="Terisi Otomatis" readonly>
+              </div>
             </div>
             
-           <!-- Kotak Alasan Retur dibuat lebar penuh -->
             <div class="form-group">
               <label for="alasan_retur">Alasan Retur</label>
               <textarea id="alasan_retur" name="alasan_retur" placeholder="Jelaskan alasan pengembalian paket secara singkat..." rows="3" required></textarea>
             </div>
           </div>
           
-          <button type="submit" id="submit-btn" class="btn-primary">Simpan Data Retur</button>
+          <button type="submit" id="submit-btn" class="btn-primary">Cek Nomor Pemesanan</button>
         </form>
       </div>
     </section>
