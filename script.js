@@ -24,43 +24,44 @@ document.addEventListener("DOMContentLoaded", function () {
   let validNumbers = [];
   let fullDataList = [];
   
-  async function loadValidNumbers() {
+ async function loadValidNumbers() {
     try {
-      // Memuat 2 file JSON secara bersamaan (Paralel)
-      // PERBAIKAN TYPO: d0_all_part2.json diubah menjadi do_all_part2.json
-      const [response1, response2] = await Promise.all([
-        fetch('do_all_part1.json'),
-        fetch('do_all_part2.json') 
-      ]);
+      let dataPart1 = { data: [], kamus_upbjj: [] };
+      let dataPart2 = { data: [], kamus_upbjj: [] };
 
-      const dataPart1 = await response1.json();
-      const dataPart2 = await response2.json();
-      
-      // Menggabungkan array data dari kedua file (Mencegah error jika salah satu kosong)
+      // Tarik Part 1 (Jika gagal, jangan matikan sistem)
+      try {
+        const res1 = await fetch('do_all_github_part1.json');
+        dataPart1 = await res1.json();
+      } catch(e) { console.warn("Peringatan: File Part 1 gagal dimuat.", e); }
+
+      // Tarik Part 2 (Jika gagal, jangan matikan sistem)
+      try {
+        const res2 = await fetch('do_all_github_part2.json');
+        dataPart2 = await res2.json();
+      } catch(e) { console.warn("Peringatan: File Part 2 gagal dimuat.", e); }
+
       const data1Array = dataPart1.data || [];
       const data2Array = dataPart2.data || [];
-      const combinedData = [...data1Array, ...data2Array];
       
-      // Mengambil referensi kamus UPBJJ (cukup dari salah satu file)
-      const kamusUpbjj = dataPart1.kamus_upbjj || [];
+      // Gabungkan data yang berhasil didapat saja
+      const combinedData = [...data1Array, ...data2Array];
+      const kamusUpbjj = dataPart1.kamus_upbjj || dataPart2.kamus_upbjj || [];
 
-      // Membongkar format string "nomor;nim;id_upbjj"
       fullDataList = combinedData.map(row => {
         const parts = row.split(';');
-        const indexUpbjj = parseInt(parts[2], 10);
-        
         return {
-          nomor: parts[0],
-          nim: parts[1],
-          upbjj: kamusUpbjj[indexUpbjj] || "Tidak Diketahui"
+          nomor: parts[0] ? parts[0].trim() : "",
+          nim: parts[1] ? parts[1].trim() : "Tidak ada NIM",
+          upbjj: kamusUpbjj[parseInt(parts[2] ? parts[2].trim() : "0", 10)] || "Tidak Diketahui"
         };
       });
 
-      // Simpan array khusus nomor pemesanan untuk pencarian cepat
       validNumbers = fullDataList.map(item => item.nomor);
+      console.log(`Database siap! Total nomor: ${validNumbers.length}`);
       
     } catch (error) {
-      console.error("Gagal memuat database nomor:", error);
+      console.error("Gagal memproses database:", error);
     }
   }
   loadValidNumbers();
