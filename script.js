@@ -26,17 +26,36 @@ document.addEventListener("DOMContentLoaded", function () {
   
   async function loadValidNumbers() {
     try {
-      const response = await fetch('do_all.json');
-      const rawData = await response.json();
+      // Memuat 2 file JSON secara bersamaan (Paralel)
+      const [response1, response2] = await Promise.all([
+        fetch('do_all_part1.json'),
+        fetch('d0_all_part2.json')
+      ]);
+
+      const dataPart1 = await response1.json();
+      const dataPart2 = await response2.json();
       
-      if (rawData && rawData.data) {
-       fullDataList = rawData.data.map(row => ({
-          nomor: row[0].toString(),
-          nim: row[1] ? row[1].toString() : "Data tidak ditemukan",
-          upbjj: row[2] ? row[2].toString() : "Data tidak ditemukan"
-        }));
-        validNumbers = fullDataList.map(item => item.nomor);
-      }
+      // Menggabungkan array data dari kedua file
+      const combinedData = [...dataPart1.data, ...dataPart2.data];
+      
+      // Mengambil referensi kamus UPBJJ (cukup dari salah satu file)
+      const kamusUpbjj = dataPart1.kamus_upbjj;
+
+      // Membongkar format string "nomor;nim;id_upbjj"
+      fullDataList = combinedData.map(row => {
+        const parts = row.split(';');
+        const indexUpbjj = parseInt(parts[2], 10);
+        
+        return {
+          nomor: parts[0],
+          nim: parts[1],
+          upbjj: kamusUpbjj[indexUpbjj] || "Tidak Diketahui"
+        };
+      });
+
+      // Simpan array khusus nomor pemesanan untuk pencarian cepat
+      validNumbers = fullDataList.map(item => item.nomor);
+      
     } catch (error) {
       console.error("Gagal memuat database nomor:", error);
     }
