@@ -31,13 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Tarik Part 1 (Jika gagal, jangan matikan sistem)
       try {
-        const res1 = await fetch('do_all_github_part1.json');
+        const res1 = await fetch('do_all_part1.json');
         dataPart1 = await res1.json();
       } catch(e) { console.warn("Peringatan: File Part 1 gagal dimuat.", e); }
 
       // Tarik Part 2 (Jika gagal, jangan matikan sistem)
       try {
-        const res2 = await fetch('do_all_github_part2.json');
+        const res2 = await fetch('do_all_part2.json');
         dataPart2 = await res2.json();
       } catch(e) { console.warn("Peringatan: File Part 2 gagal dimuat.", e); }
 
