@@ -27,19 +27,22 @@ document.addEventListener("DOMContentLoaded", function () {
   async function loadValidNumbers() {
     try {
       // Memuat 2 file JSON secara bersamaan (Paralel)
+      // PERBAIKAN TYPO: d0_all_part2.json diubah menjadi do_all_part2.json
       const [response1, response2] = await Promise.all([
         fetch('do_all_part1.json'),
-        fetch('d0_all_part2.json')
+        fetch('do_all_part2.json') 
       ]);
 
       const dataPart1 = await response1.json();
       const dataPart2 = await response2.json();
       
-      // Menggabungkan array data dari kedua file
-      const combinedData = [...dataPart1.data, ...dataPart2.data];
+      // Menggabungkan array data dari kedua file (Mencegah error jika salah satu kosong)
+      const data1Array = dataPart1.data || [];
+      const data2Array = dataPart2.data || [];
+      const combinedData = [...data1Array, ...data2Array];
       
       // Mengambil referensi kamus UPBJJ (cukup dari salah satu file)
-      const kamusUpbjj = dataPart1.kamus_upbjj;
+      const kamusUpbjj = dataPart1.kamus_upbjj || [];
 
       // Membongkar format string "nomor;nim;id_upbjj"
       fullDataList = combinedData.map(row => {
