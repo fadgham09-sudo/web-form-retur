@@ -49,7 +49,7 @@
          <div class="form-group autocomplete-wrapper">
             <label for="nomor_pemesanan">Nomor Pemesanan</label>
             <!-- Validasi 20 - 22 karakter diinput disini -->
-            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 - 22 digit angka" minlength="20" maxlength="22" pattern="\d{20,22}" title="Nomor harus terdiri dari 20 hingga 22 digit angka" autocomplete="off" required>
+            <input type="text" id="nomor_pemesanan" name="nomor_pemesanan" placeholder="Masukkan 20 - 22 karakter" minlength="20" maxlength="22" pattern="[0-9_]{20,22}" title="Nomor harus terdiri dari 20 hingga 22 karakter (angka dan garis bawah)" autocomplete="off" required>
             <div id="autocomplete-list" class="autocomplete-items hidden"></div>
           </div>
 
