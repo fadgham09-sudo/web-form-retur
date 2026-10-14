@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alasanReturDiketik === ""
       ) {
         showAlert(
-          "Semua identitas (NIM, UT Daerah, dan Alasan Retur) wajib diisi.",
+          "Alasan retur paket wajib diisi",
           "error"
         );
         btnSubmit.textContent = originalBtnText;
